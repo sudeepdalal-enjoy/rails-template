@@ -8,3 +8,7 @@ gem_group :development, :test do
 end
 
 rails_command 'db:system:change --to=postgresql'
+
+after_bundle do
+  generate 'rspec:install'
+end
