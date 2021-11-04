@@ -8,7 +8,8 @@ gem_group :development, :test do
 end
 
 rails_command 'db:system:change --to=postgresql'
-
 after_bundle do
+  run "spring stop"
   generate 'rspec:install'
+  rails_command("db:migrate") if yes?("Run database migrations?")
 end
