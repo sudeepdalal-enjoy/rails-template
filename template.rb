@@ -12,4 +12,7 @@ after_bundle do
   run "spring stop"
   generate 'rspec:install'
   rails_command("db:migrate") if yes?("Run database migrations?")
+  git :init
+  git add: '.'
+  git commit: "-a -m 'Initial commit'"
 end
