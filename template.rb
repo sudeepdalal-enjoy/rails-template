@@ -21,8 +21,12 @@ rails_command 'db:system:change --to=postgresql'
 
 after_bundle do
   run "spring stop"
-  echo "require_relative './support/factory_bot.rb'" >> spec/spec_helper.rb
   generate 'rspec:install'
+  inject_into_file 'spec/spec_helper.rb'  do
+    <<-CODE
+      require_relative './support/factory_bot.rb'
+    CODE
+  end
   rails_command("db:migrate") if yes?("Run database migrations?")
   git :init
   git add: '.'
